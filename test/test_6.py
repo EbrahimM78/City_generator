@@ -64,3 +64,6 @@ terrain = np.clip(terrain, 0, 1)
 
 plt.imshow(terrain)
 plt.show()
+
+# Save the generated map as a PNG
+plt.imsave('generated_map.png', terrain)
