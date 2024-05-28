@@ -35,39 +35,36 @@ function generateMap() {
     try {
         const map = generateCityMap(mapSize, cityStyle);
 
-        const canvas = document.createElement('canvas');
-        canvas.width = mapSize * tileSize;
-        canvas.height = mapSize * tileSize;
-        const ctx = canvas.getContext('2d');
-
-        ctx.imageSmoothingEnabled = false; // Disable anti-aliasing
-
-        const imageData = new Uint8ClampedArray(mapSize * mapSize * 4);
-        for (let i = 0; i < mapSize; i++) {
-            for (let j = 0; j < mapSize; j++) {
-                const terrainType = map[i][j];
-                const color = getTerrainColor(terrainType);
-                const r = color === 'blue' ? 0 : color === 'green' ? 128 : 255;
-                const g = color === 'blue' ? 0 : color === 'green' ? 128 : 255;
-                const b = color === 'blue' ? 255 : color === 'green' ? 128 : 255;
-                imageData[(i * mapSize * 4) + (j * 4) + 0] = r;
-                imageData[(i * mapSize * 4) + (j * 4) + 1] = g;
-                imageData[(i * mapSize * 4) + (j * 4) + 2] = b;
-                imageData[(i * mapSize * 4) + (j * 4) + 3] = 255;
-            }
-        }
-        ctx.putImageData(new ImageData(imageData, mapSize, mapSize), 0, 0);
-
         const mapImage = new Image();
         mapImage.onload = function() {
             mapContainer.replaceChildren(); // clear the container
             mapContainer.appendChild(mapImage);
         };
-        mapImage.src = canvas.toDataURL();
+        mapImage.src = renderMap(map);
     } catch (error) {
         console.error(error);
         alert(`Error generating map: ${error.message}`);
     }
+}
+
+function renderMap(mapData) {
+    const canvas = document.createElement('canvas');
+    canvas.width = mapSize * tileSize;
+    canvas.height = mapSize * tileSize;
+    const ctx = canvas.getContext('2d');
+
+    for (let i = 0; i < mapData.length; i++) {
+        for (let j = 0; j < mapData[i].length; j++) {
+            const terrainType = mapData[i][j];
+            const color = getTerrainColor(terrainType);
+            const x = i * tileSize;
+            const y = j * tileSize;
+            ctx.fillStyle = color;
+            ctx.fillRect(x, y, tileSize, tileSize);
+        }
+    }
+
+    return canvas.toDataURL();
 }
 
 function init() {
