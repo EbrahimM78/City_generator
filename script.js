@@ -3,7 +3,7 @@ let canvas;
 let ctx;
 let mapSize = 20;
 let tileSize = 20;
-let cityStyle = 'modern';
+let cityStyle = 'odern';
 
 function generateCityMap(mapSize, cityStyle) {
     const map = [];
@@ -31,6 +31,31 @@ function getTerrainColor(terrainType) {
     }
 }
 
+function renderMap(mapData) {
+    const canvas = document.createElement('canvas');
+    canvas.width = mapSize * tileSize;
+    canvas.height = mapSize * tileSize;
+    const ctx = canvas.getContext('2d');
+
+    const colors = {
+        water: 'blue',
+        grass: 'green',
+    };
+
+    for (let i = 0; i < mapData.length; i++) {
+        for (let j = 0; j < mapData[i].length; j++) {
+            const terrainType = mapData[i][j];
+            const color = colors[terrainType];
+            const x = i * tileSize;
+            const y = j * tileSize;
+            ctx.fillStyle = color;
+            ctx.fillRect(x, y, tileSize, tileSize);
+        }
+    }
+
+    return canvas.toDataURL();
+}
+
 function generateMap() {
     try {
         const map = generateCityMap(mapSize, cityStyle);
@@ -45,26 +70,6 @@ function generateMap() {
         console.error(error);
         alert(`Error generating map: ${error.message}`);
     }
-}
-
-function renderMap(mapData) {
-    const canvas = document.createElement('canvas');
-    canvas.width = mapSize * tileSize;
-    canvas.height = mapSize * tileSize;
-    const ctx = canvas.getContext('2d');
-
-    for (let i = 0; i < mapData.length; i++) {
-        for (let j = 0; j < mapData[i].length; j++) {
-            const terrainType = mapData[i][j];
-            const color = getTerrainColor(terrainType);
-            const x = i * tileSize;
-            const y = j * tileSize;
-            ctx.fillStyle = color;
-            ctx.fillRect(x, y, tileSize, tileSize);
-        }
-    }
-
-    return canvas.toDataURL();
 }
 
 function init() {
