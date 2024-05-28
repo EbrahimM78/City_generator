@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>City Generator</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Size</h2>
+            <p>64x64</p>
+        </section>
+        <section>
+            <h2>City Style</h2>
+            <select id="city-type">
+                <option value="">Select a city style</option>
+                <option value="coastal">Coastal</option>
+                <option value="inland">Inland</option>
+                <option value="island">Island</option>
+                <option value="mainland">Mainland</option>
+            </select>
+        </section>
+        <section>
+            <button id="generate-btn" style="background-color: #34C759; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Generate</button>
+        </section>
+        <div id="map-container" style="width: 80%; height: 0; padding-bottom: 45%; margin: 20px auto;"></div>
+    </main>
+    <script src="map-generator.js"></script>
+</body>
+</html>

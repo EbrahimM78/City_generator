@@ -3,13 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map Generator</title>
+    <title>City Map Generator</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.3.1/fabric.min.js"></script>
 </head>
 <body>
-    <h1>Map Generator</h1>
-    <div id="map-container" style="width: 800px; height: 600px;"></div>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <main>
+        <div id="map-container"></div>
+        <div id="controls">
+            <select id="style-select">
+                <option value="default">Default</option>
+                <option value="medieval">Medieval</option>
+                <option value="modern">Modern</option>
+                <option value="futuristic">Futuristic</option>
+            </select>
+            <button id="generate-button">Generate Map</button>
+        </div>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>
