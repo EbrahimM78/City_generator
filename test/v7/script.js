@@ -87,10 +87,6 @@ function generateMap() {
 
 function init() {
   mapContainer = document.getElementById('map-container');
-
-  // Add event listener for the "Generate Map" button
-  document.getElementById('generate-button').addEventListener('click', generateMap);
-
   generateMap();
 }
 
