@@ -3,7 +3,7 @@ let canvas;
 let ctx;
 let mapSize = 20;
 let tileSize = 20;
-let cityStyle = 'odern';
+let cityStyle = 'modern';
 
 function generateCityMap(mapSize, cityStyle) {
     const map = [];
