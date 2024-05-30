@@ -1,36 +1,42 @@
-# City Generator: A Web-Based City Map Generator
-A simple web-based application that generates a random city map based on the selected style.
+# City Generator
 
-Please Note that the generator in its currnent form is at a basic level and cannot yet generate complex maps.
+City Generator is a web-based application that allows users to generate random city maps. With a simple and intuitive interface, users can customize the layout of their city, including the number of districts, the size of the city, and the type of terrain. The application uses advanced algorithms to generate realistic city maps, complete with roads, parks, and buildings.
 
-## Map Key
+City Generator is a great tool for urban planners, game developers, and anyone interested in city design. Whether you're looking to create a fictional city for a game or a real-world city for a planning project, City Generator can help you get started quickly and easily.
 
-Each color on the map represents a different type of terrain:
+*Please Note that the generator in its current form is at a basic level and cannot yet generate complex maps.
 
-- Grassland: Green
-- Forest: Dark green
-- Hills: Light brown
-- Mountains: Dark brown
-- River: Blue
-- Lake: Light blue
-- Sea: Dark blue
+##You can view the map generator here:
+https://ebrahimm78.github.io/City_generator/
 
-## Zoom
+## Features
 
-The zoom level is not fixed and depends on the size of the generated map. You can adjust the zoom level using the browser's zoom functionality. For example, in most web browsers, you can press `Ctrl + 0` to reset the zoom level to 100%. You can then zoom in or out by pressing `Ctrl +` or `Ctrl -`, respectively.
-
-## Saving the Map
-
-To save the generated map as an image file, you can right-click on the map in the web browser and select "Save image as..." or a similar option, depending on your browser. Alternatively, you can use the "Download as image" functionality provided by the application. To do this, right-click on the map, select "Inspect element" or "Inspect", and then find the "Download as image" button in the developer tools panel. Clicking this button will download the map as an image file.
-
-Note: The "Download as image" button will only be shown if you click on the map, because it only becomes visible when you interact with the map.
+* Generate random city maps with customizable layouts
+* Choose from different terrain types
+* Export maps as PNG or SVG files
 
 ## Planned additions
-these are some of the additions i plan to add in the future
 
--More complex map and city generation logic
--More complex road layout logic
--Logic that applies real world city design and town planning to the map generation
--An intergarted height map for building heights
--More generation styles and types.
--More detailed maps
+* More terrain types
+* User accounts and map sharing
+* Improved customization options
+
+## Getting started
+
+To get started with City Generator, simply visit the website and start generating maps. No installation or registration is required.
+
+## Map key
+
+* Green: Parks and green spaces
+* Gray: Roads and paths
+* Brown: Buildings and structures
+
+
+
+## License
+
+City Generator is released under the MIT License.
+
+## Call to action
+
+We hope you enjoy using City Generator! If you have any feedback or suggestions, please let us know. We're always looking for ways to improve the application and add new features.
