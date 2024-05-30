@@ -4,7 +4,7 @@ let mapContainer;
 
 const mapSize = 100;
 const tileSize = 10;
-const cityStyle = 'modern';
+let cityStyle = 'modern';
 
 function generateCityMap(mapSize, cityStyle) {
   const map = [];
@@ -54,7 +54,7 @@ function getTerrainColor(terrainType) {
   }
 }
 
-function generateMap() {
+function generateMap(cityStyle) {
   try {
     const map = generateCityMap(mapSize, cityStyle);
 
@@ -86,9 +86,12 @@ function init() {
   mapContainer = document.getElementById('map-container');
 
   // Add event listener for the "Generate Map" button
-  document.getElementById('generate-button').addEventListener('click', generateMap);
+  document.getElementById('generate-button').addEventListener('click', () => {
+    const cityStyle = document.getElementById('style-select').value;
+    generateMap(cityStyle);
+  });
 
-  generateMap();
+  generateMap(cityStyle);
 }
 
 init();
