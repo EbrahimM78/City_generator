@@ -23,7 +23,7 @@ function generateCityMap(mapSize, cityStyle) {
   }
 
   // Add some randomness to the map generation
-  if (cityStyle === 'odern') {
+  if (cityStyle === 'modern') {
     for (let i = 1; i < mapSize - 1; i++) {
       for (let j = 1; j < mapSize - 1; j++) {
         if (Math.random() < 0.1) {
@@ -73,8 +73,12 @@ function generateMap() {
       }
     }
 
-    mapContainer.replaceChildren(); // clear the container
-    mapContainer.appendChild(canvas);
+    const mapImage = new Image();
+    mapImage.onload = function() {
+      mapContainer.replaceChildren(); // clear the container
+      mapContainer.appendChild(mapImage);
+    };
+    mapImage.src = canvas.toDataURL();
   } catch (error) {
     console.error(error);
     alert(`Error generating map: ${error.message}`);
