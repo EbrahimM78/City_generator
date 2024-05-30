@@ -12,13 +12,14 @@ https://ebrahimm78.github.io/City_generator/
 ## Features
 
 * Generate random city maps with customizable layouts
-* Choose from different terrain types
-* Export maps as PNG or SVG files
+
 
 ## Planned additions
 
+* Improved map generation logic and systems.
 * More terrain types
-* User accounts and map sharing
+* Choose from different terrain types
+* Export maps as PNG, JPEG, SVG and OBJ files
 * Improved customization options
 
 ## Getting started
@@ -29,7 +30,7 @@ To get started with City Generator, simply visit the website and start generatin
 
 * Green: Parks and green spaces
 * Gray: Roads and paths
-* Brown: Buildings and structures
+* Brown/Red: Buildings and structures
 
 
 
