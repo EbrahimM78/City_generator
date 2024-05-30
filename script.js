@@ -1,9 +1,10 @@
-let mapContainer;
 let canvas;
 let ctx;
-let mapSize = 20;
-let tileSize = 20;
-let cityStyle = 'modern';
+let mapContainer;
+
+const mapSize = 100;
+const tileSize = 10;
+const cityStyle = 'modern';
 
 function generateCityMap(mapSize, cityStyle) {
   const map = [];
@@ -13,22 +14,22 @@ function generateCityMap(mapSize, cityStyle) {
       if (i === 0 || j === 0 || i === mapSize - 1 || j === mapSize - 1) {
         map[i].push('water');
       } else {
+        let terrainType = 'grass';
         if (Math.random() < 0.5) {
-          map[i].push('water');
-        } else {
-          map[i].push('grass');
+          terrainType = 'water';
         }
+        map[i].push(terrainType);
       }
     }
   }
 
   // Add some randomness to the map generation
-  if (cityStyle === 'odern') {
+  if (cityStyle === 'modern') {
     for (let i = 1; i < mapSize - 1; i++) {
       for (let j = 1; j < mapSize - 1; j++) {
-        if (Math.random() < 0.1) {
+        if (map[i][j] === 'grass' && Math.random() < 0.1) {
           map[i][j] = 'road';
-        } else if (Math.random() < 0.05) {
+        } else if (map[i][j] === 'grass' && Math.random() < 0.05) {
           map[i][j] = 'park';
         }
       }
