@@ -4,34 +4,34 @@ let mapContainer;
 
 const mapSize = 64;
 const tileSize = 10;
-let cityStyle = 'odern';
+let cityStyle = 'modern';
 
-// New generateCityMap function
 function generateCityMap(mapSize, cityStyle) {
   const map = [];
   for (let i = 0; i < mapSize; i++) {
     map.push([]);
     for (let j = 0; j < mapSize; j++) {
-      // Create a grid-based city structure
-      if (i % 10 === 0 || j % 10 === 0) {
-        map[i].push('road'); // roads every 10 cells
-      } else if (Math.random() < 0.3) {
-        map[i].push('building'); // buildings with 30% probability
-      } else if (Math.random() < 0.1) {
-        map[i].push('park'); // parks with 10% probability
+      if (i === 0 || j === 0 || i === mapSize - 1 || j === mapSize - 1) {
+        map[i].push('water');
       } else {
-        map[i].push('grass'); // grass otherwise
+        let terrainType = 'grass';
+        if (Math.random() < 0.5) {
+          terrainType = 'water';
+        }
+        map[i].push(terrainType);
       }
     }
   }
 
-  // Add some randomness and variation
-  for (let i = 1; i < mapSize - 1; i++) {
-    for (let j = 1; j < mapSize - 1; j++) {
-      if (map[i][j] === 'building' && Math.random() < 0.2) {
-        map[i][j] = 'kyscraper'; // 20% chance of upgrading to skyscraper
-      } else if (map[i][j] === 'grass' && Math.random() < 0.1) {
-        map[i][j] = 'tree'; // 10% chance of adding a tree
+  // Add some randomness to the map generation
+  if (cityStyle === 'modern') {
+    for (let i = 1; i < mapSize - 1; i++) {
+      for (let j = 1; j < mapSize - 1; j++) {
+        if (map[i][j] === 'grass' && Math.random() < 0.1) {
+          map[i][j] = 'road';
+        } else if (map[i][j] === 'grass' && Math.random() < 0.05) {
+          map[i][j] = 'park';
+        }
       }
     }
   }
@@ -49,12 +49,6 @@ function getTerrainColor(terrainType) {
       return 'gray';
     case 'park':
       return 'brown';
-    case 'building':
-      return 'lightgray';
-    case 'kyscraper':
-      return 'darkgray';
-    case 'tree':
-      return 'darkgreen';
     default:
       return 'gray';
   }
@@ -100,4 +94,4 @@ function init() {
   generateMap(cityStyle);
 }
 
-init()
+init();
