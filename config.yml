@@ -1,1 +1,3 @@
-exclude: ["city-map-generator-backend/node_modules"]
+markdown:
+  exclude:
+    - city-map-generator-backend/node_modules/
