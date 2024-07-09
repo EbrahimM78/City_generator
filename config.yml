@@ -1,3 +1,10 @@
+liquid:
+  ignore:
+    - city-map-generator-backend/node_modules/
 markdown:
   exclude:
     - city-map-generator-backend/node_modules/
+exclude:
+  - city-map-generator-backend/node_modules/**
+keep_files:
+  - city-map-generator-backend/node_modules
