@@ -22,28 +22,6 @@
   <button id="generate-button">Generate Map</button>
   <div id="map-container"></div>
 
-  <script>
-    let mapContainer;
-
-    // Get the elements
-    mapContainer = document.getElementById('map-container');
-    const generateButton = document.getElementById('generate-button');
-    const styleSelect = document.getElementById('style-select');
-
-    // Add event listener to the generate button
-    generateButton.addEventListener('click', () => {
-      const cityStyle = styleSelect.value;
-      fetch(`/generate-map?style=${cityStyle}`)
-      .then(response => response.blob())
-      .then(blob => {
-          const url = URL.createObjectURL(blob);
-          const image = document.createElement('img');
-          image.src = url;
-          mapContainer.replaceChildren(); // clear the container
-          mapContainer.appendChild(image);
-        })
-      .catch(error => console.error(error));
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

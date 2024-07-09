@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>City Map Generator</title>
+  <style>
+    #map-container {
+      width: 640px;
+      height: 640px;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <h1>City Map Generator</h1>
+  <select id="style-select">
+    <option value="default">Default</option>
+    <option value="fantasy">Fantasy</option>
+    <option value="sci-fi">Sci-Fi</option>
+  </select>
+  <button id="generate-button">Generate Map</button>
+  <div id="map-container"></div>
+
+  <script>
+    let mapContainer;
+
+    // Get the elements
+    mapContainer = document.getElementById('map-container');
+    const generateButton = document.getElementById('generate-button');
+    const styleSelect = document.getElementById('style-select');
+
+    // Add event listener to the generate button
+    generateButton.addEventListener('click', () => {
+      const cityStyle = styleSelect.value;
+      fetch(`/generate-map?style=${cityStyle}`)
+        .then(response => response.blob())
+        .then(blob => {
+          const url = URL.createObjectURL(blob);
+          const image = document.createElement('img');
+          image.src = url;
+          mapContainer.replaceChildren(); // clear the container
+          mapContainer.appendChild(image);
+        })
+        .catch(error => console.error(error));
+    });
+  </script>
+
+  <!-- Update the 'src' attribute of the 'script' tag -->
+  <script src="city-map-generator-backend/script.js"></script>
+</body>
+</html>

@@ -1,39 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const generateButton = document.getElementById('generate-button');
-  const styleSelect = document.getElementById('style-select');
-  const mapContainer = document.getElementById('map-container');
+const express = require('express');
+const app = express();
+const canvas = require('canvas');
 
-  generateButton.addEventListener('click', () => {
-    const cityStyle = styleSelect.value;
-    const mapSize = 64;
-    const tileSize = 10;
-
-    // Generate the city map using a modified version of your implementation
-    const map = generateCityMap(mapSize, cityStyle);
-
-    // Create a canvas element
-    const canvasElement = document.createElement('canvas', { width: mapSize * tileSize, height: mapSize * tileSize });
-    const ctx = canvasElement.getContext('2d');
-
-    // Draw the city map on the canvas
-    for (let i = 0; i < mapSize; i++) {
-      for (let j = 0; j < mapSize; j++) {
-        const terrainType = map[i][j];
-        const color = getTerrainColor(terrainType);
-        ctx.fillStyle = color;
-        ctx.fillRect(i * tileSize, j * tileSize, tileSize, tileSize);
-      }
-    }
-
-    // Add the generated image to the map container
-    const image = document.createElement('img');
-    image.src = canvasElement.toDataURL();
-    mapContainer.replaceChildren(); // clear the container
-    mapContainer.appendChild(image);
-  });
-});
-
-// Modified version of your generateCityMap function
 function generateCityMap(mapSize, cityStyle) {
   const map = [];
   for (let i = 0; i < mapSize; i++) {
@@ -66,7 +34,6 @@ function generateCityMap(mapSize, cityStyle) {
   return map;
 }
 
-// Modified version of your getTerrainColor function
 function getTerrainColor(terrainType) {
   switch (terrainType) {
     case 'water':
@@ -87,3 +54,36 @@ function getTerrainColor(terrainType) {
       return 'white';
   }
 }
+
+app.get('/generate-map', (req, res) => {
+  const cityStyle = req.query.style;
+  const mapSize = 64;
+  const tileSize = 10;
+
+  // Generate the city map using your implementation
+  const map = generateCityMap(mapSize, cityStyle);
+
+  // Create a canvas element
+  const canvasElement = canvas.createCanvas(mapSize * tileSize, mapSize * tileSize);
+  const ctx = canvasElement.getContext('2d');
+
+  // Draw the city map on the canvas
+  for (let i = 0; i < mapSize; i++) {
+    for (let j = 0; j < mapSize; j++) {
+      const terrainType = map[i][j];
+      const color = getTerrainColor(terrainType);
+      ctx.fillStyle = color;
+      ctx.fillRect(i * tileSize, j * tileSize, tileSize, tileSize);
+    }
+  }
+
+  // Return the generated image as a response
+  const imageData = canvasElement.toBuffer();
+  res.set('Content-Type', 'image/png');
+  res.set('Content-Disposition', `attachment; filename="city-map-${cityStyle}.png"`);
+  res.send(imageData);
+});
+
+app.listen(3000, () => {
+  console.log('Server listening on port 3000');
+});
