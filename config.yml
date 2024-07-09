@@ -8,3 +8,5 @@ exclude:
   - city-map-generator-backend/node_modules/**
 keep_files:
   - city-map-generator-backend/node_modules
+liquid:
+  error_mode: warn
