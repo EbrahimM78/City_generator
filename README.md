@@ -34,3 +34,5 @@ these are some of the additions i plan to add in the future
 -An intergarted height map for building heights
 -More generation styles and types.
 -More detailed maps
+
+## Here is the link to test it out https://ebrahimm78.github.io/City_generator/

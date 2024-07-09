@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   generateButton.addEventListener('click', () => {
     const cityStyle = styleSelect.value;
-    const mapSize = 64;
-    const tileSize = 10;
+    const mapSize = 120;
+    const tileSize = 12;
 
     // Generate the city map using a modified version of your implementation
     const map = generateCityMap(mapSize, cityStyle);
