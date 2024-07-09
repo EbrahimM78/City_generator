@@ -6,14 +6,18 @@ document.addEventListener('DOMContentLoaded', () => {
   generateButton.addEventListener('click', () => {
     const cityStyle = styleSelect.value;
     const mapSize = 120;
-    const tileSize = 12;
 
     // Generate the city map using a modified version of your implementation
     const map = generateCityMap(mapSize, cityStyle);
 
     // Create a canvas element
-    const canvasElement = document.createElement('canvas', { width: mapSize * tileSize, height: mapSize * tileSize });
+    const canvasElement = document.createElement('canvas');
+    canvasElement.width = mapContainer.offsetWidth; // set width to container width
+    canvasElement.height = mapContainer.offsetHeight; // set height to container height
     const ctx = canvasElement.getContext('2d');
+
+    const scaleFactor = Math.min(canvasElement.width / mapSize, canvasElement.height / mapSize);
+    const tileSize = scaleFactor * 12; // adjust tileSize based on canvas size
 
     // Draw the city map on the canvas
     for (let i = 0; i < mapSize; i++) {
