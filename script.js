@@ -1,93 +1,84 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const generateButton = document.getElementById('generate-button');
-  const styleSelect = document.getElementById('style-select');
-  const mapContainer = document.getElementById('map-container');
+// Get the HTML elements
+const generateButton = document.getElementById('generate-button');
+const styleSelect = document.getElementById('style-select');
+const canvasElement = document.getElementById('canvas');
 
-  generateButton.addEventListener('click', () => {
-    const cityStyle = styleSelect.value;
-    const mapSize = 120;
+// Define the terrain types and their corresponding colors
+const terrainTypes = {
+  'GRASS': '#32CD32',
+  'WATER': '#0000FF',
+  'ROAD': '#808080',
+  'BUILDING': '#CCCCCC',
+  'TREE': '#228B22'
+};
 
-    // Generate the city map using a modified version of your implementation
-    const map = generateCityMap(mapSize, cityStyle);
-
-    // Create a canvas element
-    const canvasElement = document.createElement('canvas');
-    canvasElement.width = mapContainer.offsetWidth; // set width to container width
-    canvasElement.height = mapContainer.offsetHeight; // set height to container height
-    const ctx = canvasElement.getContext('2d');
-
-    const scaleFactor = Math.min(canvasElement.width / mapSize, canvasElement.height / mapSize);
-    const tileSize = scaleFactor * 12; // adjust tileSize based on canvas size
-
-    // Draw the city map on the canvas
-    for (let i = 0; i < mapSize; i++) {
-      for (let j = 0; j < mapSize; j++) {
-        const terrainType = map[i][j];
-        const color = getTerrainColor(terrainType);
-        ctx.fillStyle = color;
-        ctx.fillRect(i * tileSize, j * tileSize, tileSize, tileSize);
-      }
-    }
-
-    // Add the generated image to the map container
-    const image = document.createElement('img');
-    image.src = canvasElement.toDataURL();
-    mapContainer.replaceChildren(); // clear the container
-    mapContainer.appendChild(image);
-  });
-});
-
-// Modified version of your generateCityMap function
+// Define the city generation algorithm
 function generateCityMap(mapSize, cityStyle) {
   const map = [];
   for (let i = 0; i < mapSize; i++) {
-    map.push([]);
+    map[i] = [];
     for (let j = 0; j < mapSize; j++) {
-      // Create a grid-based city structure
-      if (i % 10 === 0 || j % 10 === 0) {
-        map[i].push('road'); // roads every 10 cells
-      } else if (Math.random() < 0.3) {
-        map[i].push('building'); // buildings with 30% probability
-      } else if (Math.random() < 0.1) {
-        map[i].push('park'); // parks with 10% probability
-      } else {
-        map[i].push('grass'); // grass otherwise
+      // Randomly select a terrain type based on the city style
+      let terrainType;
+      switch (cityStyle) {
+        case 'default':
+          terrainType = getRandomTerrainType([0.5, 0.2, 0.1, 0.1, 0.1]);
+          break;
+        case 'urban':
+          terrainType = getRandomTerrainType([0.2, 0.5, 0.1, 0.1, 0.1]);
+          break;
+        case 'rural':
+          terrainType = getRandomTerrainType([0.8, 0.1, 0.05, 0.05, 0]);
+          break;
+        default:
+          terrainType = getRandomTerrainType([0.5, 0.2, 0.1, 0.1, 0.1]);
       }
+      map[i][j] = terrainType;
     }
   }
-
-  // Add some randomness and variation
-  for (let i = 1; i < mapSize - 1; i++) {
-    for (let j = 1; j < mapSize - 1; j++) {
-      if (map[i][j] === 'building' && Math.random() < 0.2) {
-        map[i][j] = 'kyscraper'; // 20% chance of upgrading to skyscraper
-      } else if (map[i][j] === 'grass' && Math.random() < 0.1) {
-        map[i][j] = 'tree'; // 10% chance of adding a tree
-      }
-    }
-  }
-
   return map;
 }
 
-// Modified version of your getTerrainColor function
-function getTerrainColor(terrainType) {
-  switch (terrainType) {
-    case 'water':
-      return 'blue';
-    case 'grass':
-      return 'green';
-    case 'road':
-      return 'gray';
-    case 'building':
-      return 'brown';
-    case 'kyscraper':
-      return 'darkgray';
-    case 'park':
-      return 'lightgreen';
-    case 'tree':
-      return 'darkgreen';
-    default:
-      return 'white';
+// Helper function to get a random terrain type based on probabilities
+function getRandomTerrainType(probabilities) {
+  const randomValue = Math.random();
+  let cumulativeProbability = 0;
+  for (let i = 0; i < probabilities.length; i++) {
+    cumulativeProbability += probabilities[i];
+    if (randomValue < cumulativeProbability) {
+      return Object.keys(terrainTypes)[i];
+    }
   }
+  return Object.keys(terrainTypes)[0];
 }
+
+// Helper function to get the color for a terrain type
+function getTerrainColor(terrainType) {
+  return terrainTypes[terrainType];
+}
+
+// Event listener for the generate button
+generateButton.addEventListener('click', () => {
+  const cityStyle = styleSelect.value;
+  const mapSize = 120; // number of tiles in the map
+  const canvasElement = document.getElementById('canvas');
+  const ctx = canvasElement.getContext('2d');
+
+  // Calculate the tileSize based on the canvas size and map size
+  const canvasWidth = canvasElement.offsetWidth;
+  const canvasHeight = canvasElement.offsetHeight;
+  const tileSize = Math.min(canvasWidth / mapSize, canvasHeight / mapSize);
+
+  // Generate the city map
+  const map = generateCityMap(mapSize, cityStyle);
+
+  // Draw the city map on the canvas
+  for (let i = 0; i < mapSize; i++) {
+    for (let j = 0; j < mapSize; j++) {
+      const terrainType = map[i][j];
+      const color = getTerrainColor(terrainType);
+      ctx.fillStyle = color;
+      ctx.fillRect(i * tileSize, j * tileSize, tileSize, tileSize);
+    }
+  }
+});
