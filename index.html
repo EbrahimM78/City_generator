@@ -10,6 +10,10 @@
       height: 1500px;
       border: 1px solid black;
     }
+    #canvas {
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
@@ -20,7 +24,9 @@
     <option value="sci-fi">Sci-Fi</option>
   </select>
   <button id="generate-button">Generate Map</button>
-  <div id="map-container"></div>
+  <div id="map-container">
+    <canvas id="canvas"></canvas>
+  </div>
 
   <script src="script.js"></script>
 </body>

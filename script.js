@@ -61,7 +61,6 @@ function getTerrainColor(terrainType) {
 generateButton.addEventListener('click', () => {
   const cityStyle = styleSelect.value;
   const mapSize = 120; // number of tiles in the map
-  const canvasElement = document.getElementById('canvas');
   const ctx = canvasElement.getContext('2d');
 
   // Calculate the tileSize based on the canvas size and map size
